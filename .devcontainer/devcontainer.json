@@ -1,0 +1,50 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/ubuntu
+{
+	"name": "RDS S3 Export Copy",
+	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+	"features": {
+		"ghcr.io/devcontainers/features/aws-cli:1": {},
+		"ghcr.io/devcontainers/features/node:1": {}
+	},
+	"build": {
+		"dockerfile": "Dockerfile",
+		"args": {
+			"WORKSPACE_FOLDER": "${containerWorkspaceFolder}",
+			"USERNAME": "vscode"
+		}
+	},
+	"runArgs": [
+		"--env-file",
+		".env"
+	],
+	"mounts": [
+		{
+			"type": "bind",
+			"source": "${localEnv:HOME}${localEnv:USERPROFILE}/.aws",
+			"target": "/home/vscode/.aws"
+		},
+		{
+			"type": "bind",
+			"source": "${localEnv:HOME}${localEnv:USERPROFILE}/.ssh",
+			"target": "/home/vscode/.ssh"
+		},
+		{
+			"type": "volume",
+			"source": "rds_s3_export_copy_bashhistory",
+			"target": "/commandhistory"
+		},
+		{
+			"type": "volume",
+			"source": "rds_s3_export_copy_aws_node_modules",
+			"target": "/node_modules"
+		}
+	],
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"esbenp.prettier-vscode"
+			]
+		}
+	}
+}
