@@ -101,9 +101,7 @@ export class RdsExport extends Construct {
         }),
       ],
       iamResources: [
-        props.db.clusterArn,
         `arn:${Aws.PARTITION}:rds:${Aws.REGION}:${Aws.ACCOUNT_ID}:cluster-snapshot:*`,
-        // `arn:${Aws.PARTITION}:rds:${Aws.REGION}:${Aws.ACCOUNT_ID}:snapshot:*`,
       ],
     });
 
@@ -175,9 +173,7 @@ export class RdsExport extends Construct {
         },
         iamAction: "rds:DescribeDBClusterSnapshots",
         iamResources: [
-          props.db.clusterArn,
           `arn:${Aws.PARTITION}:rds:${Aws.REGION}:${Aws.ACCOUNT_ID}:cluster-snapshot:*`,
-          // `arn:${Aws.PARTITION}:rds:${Aws.REGION}:${Aws.ACCOUNT_ID}:snapshot:*`,
         ],
         resultPath: "$.describeDbClusterSnapshots",
       }
